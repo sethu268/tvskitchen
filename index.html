@@ -14,8 +14,12 @@
         <div class="flex items-center space-x-2">
             <img src="logo.jpeg" alt="TVS Kitchen logo" class="h-10 w-auto object-contain" />
         </div>
-        <span class="text-xs bg-emerald-100 text-emerald-800 font-semibold px-2 py-1 rounded">● Kitchen Open</span>
+        <span id="store-status-badge" class="text-xs bg-emerald-100 text-emerald-800 font-semibold px-2 py-1 rounded">● Kitchen Open</span>
     </header>
+
+    <div id="store-status-banner" class="hidden mx-4 mt-4 rounded-xl border border-red-300 bg-red-50 px-4 py-3 text-sm text-red-800 font-semibold">
+        Kitchen is currently closed. Orders resume at 7:00 AM. Please check back later.
+    </div>
 
     <!-- Hero / Trust Building Section -->
     <main class="max-w-md mx-auto p-4 space-y-6">
@@ -350,6 +354,10 @@
                 <div id="checkout-items" class="space-y-2 mb-4 pb-4 border-b border-gray-200">
                     <!-- Items will be populated here -->
                 </div>
+                <div class="flex justify-between text-sm text-gray-700">
+                    <span>Delivery Fee:</span>
+                    <span id="checkout-delivery-fee">₹0</span>
+                </div>
                 <div class="flex justify-between font-bold text-lg mb-4">
                     <span>Grand Total:</span>
                     <span id="checkout-total">₹0</span>
@@ -358,6 +366,18 @@
                 <!-- Customer Details Form -->
                 <input type="text" id="customer-name" placeholder="Your Name" class="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-600">
                 <textarea id="customer-address" placeholder="Delivery Address" class="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-600 resize-none" rows="3"></textarea>
+
+                <div class="space-y-2">
+                    <label for="delivery-location" class="block text-sm font-semibold text-gray-700">Select Delivery Location</label>
+                    <select id="delivery-location" class="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-600 bg-white" required>
+                        <option value="">Choose your neighbourhood</option>
+                        <option value="Anna Nagar">Anna Nagar</option>
+                        <option value="Kotturpuram">Kotturpuram</option>
+                        <option value="T. Nagar">T. Nagar</option>
+                        <option value="Adyar">Adyar</option>
+                    </select>
+                    <p class="text-xs text-gray-500">Delivery fee waived for orders ₹250 and above.</p>
+                </div>
 
                 <!-- Payment Section -->
                 <div class="bg-blue-50 border-2 border-blue-300 rounded-lg p-4 mt-4">
@@ -379,15 +399,27 @@
         </div>
     </div>
 
+    <footer class="bg-gray-950 text-white py-6 mt-8">
+        <div class="max-w-md mx-auto px-4 space-y-2 text-center">
+            <p class="font-semibold">Contact: <a href="mailto:sethuram268@gmail.com" class="text-emerald-300 hover:text-emerald-200">sethuram268@gmail.com</a></p>
+            <p class="text-sm text-gray-400">FSSAI Lic No: Applied For</p>
+            <p class="text-xs text-gray-500">© 2026 TVS Kitchen. All rights reserved.</p>
+        </div>
+    </footer>
+
     <!-- Cart System Script -->
     <script>
         // Cart State Management
         let cart = []; // Array of cart items with quantities and extras
+        let storeClosed = false;
         const WHATSAPP_NUMBER = '916379143731';
         const UPI_ID = 'justsethuram@oksbi';
+        const DELIVERY_THRESHOLD = 250;
+        const DELIVERY_FEE = 30;
 
         // Initialize event listeners
         document.addEventListener('DOMContentLoaded', () => {
+            initializeStoreStatus();
             initializeAddToCartButtons();
             initializeCategoryTabs();
             initializeCheckoutModal();
@@ -403,6 +435,11 @@
 
         // Handle Add to Cart
         function handleAddToCart(e) {
+            if (storeClosed) {
+                alert('The kitchen is currently closed. Orders will resume at 7:00 AM.');
+                return;
+            }
+
             const button = e.target;
             const itemId = button.dataset.itemId;
             const itemName = button.dataset.name;
@@ -451,12 +488,18 @@
         function updateCartUI() {
             const cartCount = document.getElementById('cart-count');
             const cartTotal = document.getElementById('cart-total');
+            const totals = calculateCartTotals();
 
             let totalItems = cart.length;
-            let totalPrice = cart.reduce((sum, item) => sum + item.totalPrice, 0);
-
             cartCount.textContent = totalItems;
-            cartTotal.textContent = '₹' + totalPrice;
+            cartTotal.textContent = '₹' + totals.total + (totals.deliveryFee ? ' (incl. delivery)' : '');
+        }
+
+        function calculateCartTotals() {
+            const subTotal = cart.reduce((sum, item) => sum + item.totalPrice, 0);
+            const deliveryFee = subTotal === 0 || subTotal >= DELIVERY_THRESHOLD ? 0 : DELIVERY_FEE;
+            const total = subTotal + deliveryFee;
+            return { subTotal, deliveryFee, total };
         }
 
         // Show cart tray
@@ -510,6 +553,47 @@
             });
         }
 
+        function initializeStoreStatus() {
+            storeClosed = !isStoreOpen();
+            const badge = document.getElementById('store-status-badge');
+            const banner = document.getElementById('store-status-banner');
+            const checkoutBtn = document.getElementById('checkout-btn');
+            const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+
+            if (storeClosed) {
+                badge.textContent = '● Kitchen Closed';
+                badge.classList.remove('bg-emerald-100', 'text-emerald-800');
+                badge.classList.add('bg-red-100', 'text-red-700');
+                banner.classList.remove('hidden');
+                checkoutBtn.disabled = true;
+                checkoutBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                addToCartButtons.forEach(button => {
+                    button.disabled = true;
+                    button.classList.add('opacity-50', 'cursor-not-allowed');
+                });
+            } else {
+                badge.textContent = '● Kitchen Open';
+                badge.classList.remove('bg-red-100', 'text-red-700');
+                badge.classList.add('bg-emerald-100', 'text-emerald-800');
+                banner.classList.add('hidden');
+                checkoutBtn.disabled = false;
+                checkoutBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                addToCartButtons.forEach(button => {
+                    button.disabled = false;
+                    button.classList.remove('opacity-50', 'cursor-not-allowed');
+                });
+            }
+        }
+
+        function isStoreOpen() {
+            const now = new Date();
+            const openTime = new Date(now);
+            const closeTime = new Date(now);
+            openTime.setHours(7, 0, 0, 0);
+            closeTime.setHours(21, 30, 0, 0);
+            return now >= openTime && now <= closeTime;
+        }
+
         // Checkout Modal Management
         function initializeCheckoutModal() {
             const checkoutBtn = document.getElementById('checkout-btn');
@@ -519,6 +603,10 @@
 
             // Open checkout modal
             checkoutBtn.addEventListener('click', () => {
+                if (storeClosed) {
+                    alert('Sorry, the kitchen is closed. Orders will resume at 7:00 AM.');
+                    return;
+                }
                 populateCheckoutModal();
                 checkoutModal.classList.remove('hidden');
             });
@@ -543,13 +631,12 @@
         function populateCheckoutModal() {
             const checkoutItems = document.getElementById('checkout-items');
             const checkoutTotal = document.getElementById('checkout-total');
+            const checkoutDeliveryFee = document.getElementById('checkout-delivery-fee');
+            const totals = calculateCartTotals();
 
             checkoutItems.innerHTML = '';
-            let totalPrice = 0;
 
             cart.forEach(item => {
-                totalPrice += item.totalPrice;
-
                 let itemHTML = `
                     <div class="flex justify-between text-xs text-gray-700">
                         <span>
@@ -569,13 +656,20 @@
                 checkoutItems.innerHTML += itemHTML;
             });
 
-            checkoutTotal.textContent = '₹' + totalPrice;
+            checkoutDeliveryFee.textContent = totals.deliveryFee ? `₹${totals.deliveryFee}` : 'Free';
+            checkoutTotal.textContent = '₹' + totals.total;
         }
 
         // Handle Place Order with UPI Payment
         function handlePlaceOrder() {
+            if (storeClosed) {
+                alert('The kitchen is currently closed. Please order when we reopen at 7:00 AM.');
+                return;
+            }
+
             const customerName = document.getElementById('customer-name').value.trim();
             const customerAddress = document.getElementById('customer-address').value.trim();
+            const deliveryLocation = document.getElementById('delivery-location').value.trim();
             const customerInstructions = document.getElementById('customer-instructions').value.trim();
 
             // Validation
@@ -587,12 +681,14 @@
                 alert('Please enter your delivery address');
                 return;
             }
+            if (!deliveryLocation) {
+                alert('Please select a delivery location');
+                return;
+            }
 
-            // Calculate total price
-            let totalPrice = 0;
-            cart.forEach((item) => {
-                totalPrice += item.totalPrice;
-            });
+            const totals = calculateCartTotals();
+            const totalPrice = totals.total;
+            const deliveryFee = totals.deliveryFee;
 
             // Generate UPI deep-link
             const upiLink = generateUPILink(totalPrice);
@@ -602,8 +698,12 @@
             orderMessage += `*Customer Details:*\n`;
             orderMessage += `Name: ${customerName}\n`;
             orderMessage += `Address: ${customerAddress}\n`;
+            orderMessage += `Delivery Location: ${deliveryLocation}\n`;
             if (customerInstructions) {
                 orderMessage += `Special Instructions: ${customerInstructions}\n`;
+            }
+            if (deliveryFee > 0) {
+                orderMessage += `Delivery Fee: ₹${deliveryFee}\n`;
             }
             orderMessage += `\n*Order Items:*\n`;
 
@@ -630,6 +730,7 @@
             document.getElementById('checkout-modal').classList.add('hidden');
             document.getElementById('customer-name').value = '';
             document.getElementById('customer-address').value = '';
+            document.getElementById('delivery-location').value = '';
             document.getElementById('customer-instructions').value = '';
             updateCartUI();
             hideCartTray();
