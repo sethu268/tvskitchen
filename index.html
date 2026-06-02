@@ -7,12 +7,12 @@
     <!-- Tailwind CSS for modern, fast styling -->
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-50 text-gray-900 font-sans">
+<body class="bg-gray-50 text-gray-900 font-sans pb-24">
 
     <!-- Header / Brand Banner Section -->
-    <header class="bg-white shadow-sm sticky top-0 z-50 px-4 py-3 flex items-center justify-between">
+    <header class="bg-white shadow-sm sticky top-0 z-40 px-4 py-3 flex items-center justify-between">
         <div class="flex items-center space-x-2">
-            <img src="logo.png" alt="TVS Kitchen logo" class="h-10 w-auto object-contain" />
+            <img src="logo.jpeg" alt="TVS Kitchen logo" class="h-10 w-auto object-contain" />
         </div>
         <span class="text-xs bg-emerald-100 text-emerald-800 font-semibold px-2 py-1 rounded">● Kitchen Open</span>
     </header>
@@ -52,25 +52,36 @@
             <div class="grid grid-cols-1 gap-4" id="menu-container">
                 
                 <!-- Standard Veg Meals -->
-                <div class="menu-card bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 transition hover:shadow-lg" data-category="meals">
-                    <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500&h=300&fit=crop" alt="Standard Veg Meals" class="w-full h-48 object-cover">
+                <div class="menu-card bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 transition hover:shadow-lg" data-category="meals" data-item-id="1">
+                    <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500&q=80" alt="Standard Veg Meals" class="w-full h-48 object-cover">
                     <div class="p-4">
                         <div class="flex items-center space-x-1.5 mb-2">
                             <span class="border border-green-600 p-0.5 rounded text-[10px] text-green-600 font-bold leading-none">⊡</span>
                             <h3 class="font-bold text-gray-900">Standard Veg Meals</h3>
                         </div>
                         <p class="text-xs text-gray-600 mb-2">Rice, Sambar, Rasam, Kootu, Poriyal & Curd.</p>
-                        <div class="flex justify-between items-center">
+                        <div class="flex justify-between items-center mb-3">
                             <p class="text-lg font-bold text-gray-900">₹120</p>
-                            <a href="https://wa.me/916379143731?text=Hello%20TVS%20Kitchen%21%20I%20would%20like%20to%20order%20the%20Standard%20Veg%20Meals.%20Please%20let%20me%20know%20the%20next%20steps.%20Thanks%21" target="_blank" class="bg-red-600 hover:bg-red-700 text-white font-bold px-4 py-2 rounded-lg text-sm transition shadow-sm">
-                                Order Now
-                            </a>
+                        </div>
+                        <button class="add-to-cart-btn w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-4 py-2 rounded-lg text-sm transition shadow-sm" data-item-id="1" data-name="Standard Veg Meals" data-price="120">
+                            Add to Cart
+                        </button>
+                        <!-- Extras -->
+                        <div class="mt-3 pt-3 border-t border-gray-200 space-y-2">
+                            <label class="flex items-center space-x-2 text-xs text-gray-700">
+                                <input type="checkbox" class="item-extra" data-item-id="1" data-extra-name="Extra Rice" data-extra-price="30">
+                                <span>Extra Rice +₹30</span>
+                            </label>
+                            <label class="flex items-center space-x-2 text-xs text-gray-700">
+                                <input type="checkbox" class="item-extra" data-item-id="1" data-extra-name="Sweet / Payasam" data-extra-price="25">
+                                <span>Sweet / Payasam +₹25</span>
+                            </label>
                         </div>
                     </div>
                 </div>
 
                 <!-- Chapati Meals -->
-                <div class="menu-card bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 transition hover:shadow-lg" data-category="meals">
+                <div class="menu-card bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 transition hover:shadow-lg" data-category="meals" data-item-id="2">
                     <img src="https://images.unsplash.com/photo-1626132647523-66f5bf380027?w=500&q=80" alt="Chapati Meals" class="w-full h-48 object-cover">
                     <div class="p-4">
                         <div class="flex items-center space-x-1.5 mb-2">
@@ -78,17 +89,28 @@
                             <h3 class="font-bold text-gray-900">Chapati Meals</h3>
                         </div>
                         <p class="text-xs text-gray-600 mb-2">3 Chapatis, Veg Kurma, Daal, Rice & Raita.</p>
-                        <div class="flex justify-between items-center">
+                        <div class="flex justify-between items-center mb-3">
                             <p class="text-lg font-bold text-gray-900">₹130</p>
-                            <a href="https://wa.me/916379143731?text=Hello%20TVS%20Kitchen%21%20I%20would%20like%20to%20order%20the%20Chapati%20Meals.%20Please%20let%20me%20know%20the%20next%20steps.%20Thanks%21" target="_blank" class="bg-red-600 hover:bg-red-700 text-white font-bold px-4 py-2 rounded-lg text-sm transition shadow-sm">
-                                Order Now
-                            </a>
+                        </div>
+                        <button class="add-to-cart-btn w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-4 py-2 rounded-lg text-sm transition shadow-sm" data-item-id="2" data-name="Chapati Meals" data-price="130">
+                            Add to Cart
+                        </button>
+                        <!-- Extras -->
+                        <div class="mt-3 pt-3 border-t border-gray-200 space-y-2">
+                            <label class="flex items-center space-x-2 text-xs text-gray-700">
+                                <input type="checkbox" class="item-extra" data-item-id="2" data-extra-name="Extra Chapati" data-extra-price="15">
+                                <span>Extra Chapati +₹15</span>
+                            </label>
+                            <label class="flex items-center space-x-2 text-xs text-gray-700">
+                                <input type="checkbox" class="item-extra" data-item-id="2" data-extra-name="Sweet / Payasam" data-extra-price="25">
+                                <span>Sweet / Payasam +₹25</span>
+                            </label>
                         </div>
                     </div>
                 </div>
 
                 <!-- Ghee Roast Dosa -->
-                <div class="menu-card bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 transition hover:shadow-lg" data-category="tiffin">
+                <div class="menu-card bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 transition hover:shadow-lg" data-category="tiffin" data-item-id="3">
                     <img src="https://images.unsplash.com/photo-1668236543090-82eba5ee5976?w=500&q=80" alt="Ghee Roast Dosa" class="w-full h-48 object-cover">
                     <div class="p-4">
                         <div class="flex items-center space-x-1.5 mb-2">
@@ -96,17 +118,17 @@
                             <h3 class="font-bold text-gray-900">Ghee Roast Dosa</h3>
                         </div>
                         <p class="text-xs text-gray-600 mb-2">Served with Chutney & Sambar.</p>
-                        <div class="flex justify-between items-center">
+                        <div class="flex justify-between items-center mb-3">
                             <p class="text-lg font-bold text-gray-900">₹90</p>
-                            <a href="https://wa.me/916379143731?text=Hello%20TVS%20Kitchen%21%20I%20would%20like%20to%20order%20the%20Ghee%20Roast%20Dosa.%20Please%20let%20me%20know%20the%20next%20steps.%20Thanks%21" target="_blank" class="bg-red-600 hover:bg-red-700 text-white font-bold px-4 py-2 rounded-lg text-sm transition shadow-sm">
-                                Order Now
-                            </a>
                         </div>
+                        <button class="add-to-cart-btn w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-4 py-2 rounded-lg text-sm transition shadow-sm" data-item-id="3" data-name="Ghee Roast Dosa" data-price="90">
+                            Add to Cart
+                        </button>
                     </div>
                 </div>
 
                 <!-- Idli Sambar Set -->
-                <div class="menu-card bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 transition hover:shadow-lg" data-category="tiffin">
+                <div class="menu-card bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 transition hover:shadow-lg" data-category="tiffin" data-item-id="4">
                     <img src="https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=500&q=80" alt="Idli Sambar Set" class="w-full h-48 object-cover">
                     <div class="p-4">
                         <div class="flex items-center space-x-1.5 mb-2">
@@ -114,17 +136,17 @@
                             <h3 class="font-bold text-gray-900">Idli Sambar Set</h3>
                         </div>
                         <p class="text-xs text-gray-600 mb-2">3 Soft Idlis with 2 Chutneys & Piping Hot Sambar.</p>
-                        <div class="flex justify-between items-center">
+                        <div class="flex justify-between items-center mb-3">
                             <p class="text-lg font-bold text-gray-900">₹70</p>
-                            <a href="https://wa.me/916379143731?text=Hello%20TVS%20Kitchen%21%20I%20would%20like%20to%20order%20the%20Idli%20Sambar%20Set.%20Please%20let%20me%20know%20the%20next%20steps.%20Thanks%21" target="_blank" class="bg-red-600 hover:bg-red-700 text-white font-bold px-4 py-2 rounded-lg text-sm transition shadow-sm">
-                                Order Now
-                            </a>
                         </div>
+                        <button class="add-to-cart-btn w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-4 py-2 rounded-lg text-sm transition shadow-sm" data-item-id="4" data-name="Idli Sambar Set" data-price="70">
+                            Add to Cart
+                        </button>
                     </div>
                 </div>
 
                 <!-- Homestyle Chicken Sukka -->
-                <div class="menu-card bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 transition hover:shadow-lg" data-category="sides">
+                <div class="menu-card bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 transition hover:shadow-lg" data-category="sides" data-item-id="5">
                     <img src="https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=500&q=80" alt="Homestyle Chicken Sukka" class="w-full h-48 object-cover">
                     <div class="p-4">
                         <div class="flex items-center space-x-1.5 mb-2">
@@ -132,12 +154,12 @@
                             <h3 class="font-bold text-gray-900">Homestyle Chicken Sukka</h3>
                         </div>
                         <p class="text-xs text-gray-600 mb-2">Semi-dry spiced coastal chicken.</p>
-                        <div class="flex justify-between items-center">
+                        <div class="flex justify-between items-center mb-3">
                             <p class="text-lg font-bold text-gray-900">₹160</p>
-                            <a href="https://wa.me/916379143731?text=Hello%20TVS%20Kitchen%21%20I%20would%20like%20to%20order%20the%20Homestyle%20Chicken%20Sukka.%20Please%20let%20me%20know%20the%20next%20steps.%20Thanks%21" target="_blank" class="bg-red-600 hover:bg-red-700 text-white font-bold px-4 py-2 rounded-lg text-sm transition shadow-sm">
-                                Order Now
-                            </a>
                         </div>
+                        <button class="add-to-cart-btn w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-4 py-2 rounded-lg text-sm transition shadow-sm" data-item-id="5" data-name="Homestyle Chicken Sukka" data-price="160">
+                            Add to Cart
+                        </button>
                     </div>
                 </div>
 
@@ -145,34 +167,292 @@
         </div>
     </main>
 
-    <!-- Category Filter Script -->
+    <!-- Floating Cart Tray (Bottom Sticky Bar) -->
+    <div id="cart-tray" class="fixed bottom-0 left-0 right-0 z-50 bg-white shadow-2xl transform translate-y-full transition-transform duration-300 border-t border-gray-200">
+        <div class="max-w-md mx-auto px-4 py-4 flex items-center justify-between">
+            <div class="flex-1">
+                <p class="text-sm font-semibold text-gray-800" id="cart-summary">
+                    <span id="cart-count">0</span> Items | Total: <span id="cart-total">₹0</span>
+                </p>
+            </div>
+            <button id="checkout-btn" class="bg-red-600 hover:bg-red-700 text-white font-bold px-6 py-2 rounded-lg text-sm transition shadow-md">
+                Checkout
+            </button>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div id="checkout-modal" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full my-auto">
+            <div class="bg-emerald-600 text-white p-6 rounded-t-2xl">
+                <h2 class="text-2xl font-bold">Order Summary</h2>
+            </div>
+            <div class="p-6 space-y-4 max-h-96 overflow-y-auto">
+                <!-- Cart Items Display -->
+                <div id="checkout-items" class="space-y-2 mb-4 pb-4 border-b border-gray-200">
+                    <!-- Items will be populated here -->
+                </div>
+                <div class="flex justify-between font-bold text-lg mb-4">
+                    <span>Grand Total:</span>
+                    <span id="checkout-total">₹0</span>
+                </div>
+
+                <!-- Customer Details Form -->
+                <input type="text" id="customer-name" placeholder="Your Name" class="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-600">
+                <textarea id="customer-address" placeholder="Delivery Address" class="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-600 resize-none" rows="3"></textarea>
+                <textarea id="customer-instructions" placeholder="Special Instructions (optional)" class="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-600 resize-none" rows="2"></textarea>
+            </div>
+            <div class="bg-gray-100 p-6 rounded-b-2xl flex gap-3">
+                <button id="close-checkout-btn" class="flex-1 bg-gray-400 hover:bg-gray-500 text-white font-bold px-4 py-2 rounded-lg transition">
+                    Cancel
+                </button>
+                <button id="place-order-btn" class="flex-1 bg-red-600 hover:bg-red-700 text-white font-bold px-4 py-2 rounded-lg transition">
+                    Place Order via WhatsApp
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart System Script -->
     <script>
-        const categoryTabs = document.querySelectorAll('.category-tab');
-        const menuCards = document.querySelectorAll('.menu-card');
+        // Cart State Management
+        let cart = []; // Array of cart items with quantities and extras
+        const WHATSAPP_NUMBER = '916379143731';
 
-        categoryTabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                // Remove active state from all tabs
-                categoryTabs.forEach(t => {
-                    t.classList.remove('bg-emerald-600', 'text-white');
-                    t.classList.add('bg-gray-200', 'text-gray-800');
+        // Initialize event listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeAddToCartButtons();
+            initializeCategoryTabs();
+            initializeCheckoutModal();
+        });
+
+        // Add to Cart Button Handler
+        function initializeAddToCartButtons() {
+            const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+            addToCartButtons.forEach(button => {
+                button.addEventListener('click', handleAddToCart);
+            });
+        }
+
+        // Handle Add to Cart
+        function handleAddToCart(e) {
+            const button = e.target;
+            const itemId = button.dataset.itemId;
+            const itemName = button.dataset.name;
+            const basePrice = parseInt(button.dataset.price);
+
+            // Get selected extras for this item
+            const extras = getSelectedExtras(itemId);
+            const extraPrice = extras.reduce((sum, extra) => sum + extra.price, 0);
+            const totalItemPrice = basePrice + extraPrice;
+
+            // Create cart item
+            const cartItem = {
+                id: Date.now(), // Unique ID for each cart entry
+                itemId: itemId,
+                name: itemName,
+                basePrice: basePrice,
+                extras: extras,
+                quantity: 1,
+                totalPrice: totalItemPrice
+            };
+
+            // Add to cart
+            cart.push(cartItem);
+            
+            // Update UI
+            updateCartUI();
+            showCartTray();
+        }
+
+        // Get selected extras for an item
+        function getSelectedExtras(itemId) {
+            const extras = [];
+            const extraCheckboxes = document.querySelectorAll(`.item-extra[data-item-id="${itemId}"]:checked`);
+            extraCheckboxes.forEach(checkbox => {
+                extras.push({
+                    name: checkbox.dataset.extraName,
+                    price: parseInt(checkbox.dataset.extraPrice)
                 });
-                
-                // Add active state to clicked tab
-                tab.classList.add('bg-emerald-600', 'text-white');
-                tab.classList.remove('bg-gray-200', 'text-gray-800');
+                // Uncheck after adding to cart
+                checkbox.checked = false;
+            });
+            return extras;
+        }
 
-                // Filter menu cards
-                const selectedCategory = tab.dataset.category;
-                menuCards.forEach(card => {
-                    if (selectedCategory === 'all' || card.dataset.category === selectedCategory) {
-                        card.style.display = 'block';
-                    } else {
-                        card.style.display = 'none';
-                    }
+        // Update Cart UI (summary and total)
+        function updateCartUI() {
+            const cartCount = document.getElementById('cart-count');
+            const cartTotal = document.getElementById('cart-total');
+
+            let totalItems = cart.length;
+            let totalPrice = cart.reduce((sum, item) => sum + item.totalPrice, 0);
+
+            cartCount.textContent = totalItems;
+            cartTotal.textContent = '₹' + totalPrice;
+        }
+
+        // Show cart tray
+        function showCartTray() {
+            const cartTray = document.getElementById('cart-tray');
+            cartTray.classList.remove('translate-y-full');
+        }
+
+        // Hide cart tray
+        function hideCartTray() {
+            if (cart.length === 0) {
+                const cartTray = document.getElementById('cart-tray');
+                cartTray.classList.add('translate-y-full');
+            }
+        }
+
+        // Category Tab Filter
+        function initializeCategoryTabs() {
+            const categoryTabs = document.querySelectorAll('.category-tab');
+            const menuCards = document.querySelectorAll('.menu-card');
+
+            categoryTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Update active tab
+                    categoryTabs.forEach(t => {
+                        t.classList.remove('bg-emerald-600', 'text-white');
+                        t.classList.add('bg-gray-200', 'text-gray-800');
+                    });
+                    tab.classList.add('bg-emerald-600', 'text-white');
+                    tab.classList.remove('bg-gray-200', 'text-gray-800');
+
+                    // Filter cards
+                    const selectedCategory = tab.dataset.category;
+                    menuCards.forEach(card => {
+                        if (selectedCategory === 'all' || card.dataset.category === selectedCategory) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
                 });
             });
-        });
+        }
+
+        // Checkout Modal Management
+        function initializeCheckoutModal() {
+            const checkoutBtn = document.getElementById('checkout-btn');
+            const closeCheckoutBtn = document.getElementById('close-checkout-btn');
+            const placeOrderBtn = document.getElementById('place-order-btn');
+            const checkoutModal = document.getElementById('checkout-modal');
+
+            // Open checkout modal
+            checkoutBtn.addEventListener('click', () => {
+                populateCheckoutModal();
+                checkoutModal.classList.remove('hidden');
+            });
+
+            // Close checkout modal
+            closeCheckoutBtn.addEventListener('click', () => {
+                checkoutModal.classList.add('hidden');
+            });
+
+            // Close modal when clicking outside
+            checkoutModal.addEventListener('click', (e) => {
+                if (e.target === checkoutModal) {
+                    checkoutModal.classList.add('hidden');
+                }
+            });
+
+            // Place order via WhatsApp
+            placeOrderBtn.addEventListener('click', handlePlaceOrder);
+        }
+
+        // Populate checkout modal with cart items
+        function populateCheckoutModal() {
+            const checkoutItems = document.getElementById('checkout-items');
+            const checkoutTotal = document.getElementById('checkout-total');
+
+            checkoutItems.innerHTML = '';
+            let totalPrice = 0;
+
+            cart.forEach(item => {
+                totalPrice += item.totalPrice;
+
+                let itemHTML = `
+                    <div class="flex justify-between text-xs text-gray-700">
+                        <span>
+                            <strong>${item.name}</strong> x${item.quantity}`;
+                
+                if (item.extras.length > 0) {
+                    itemHTML += '<br/><span class="text-gray-500 text-[10px]">';
+                    item.extras.forEach(extra => {
+                        itemHTML += `+ ${extra.name} (₹${extra.price})<br/>`;
+                    });
+                    itemHTML += '</span>';
+                }
+                itemHTML += `</span>
+                        <span class="font-semibold">₹${item.totalPrice}</span>
+                    </div>`;
+                
+                checkoutItems.innerHTML += itemHTML;
+            });
+
+            checkoutTotal.textContent = '₹' + totalPrice;
+        }
+
+        // Handle Place Order
+        function handlePlaceOrder() {
+            const customerName = document.getElementById('customer-name').value.trim();
+            const customerAddress = document.getElementById('customer-address').value.trim();
+            const customerInstructions = document.getElementById('customer-instructions').value.trim();
+
+            // Validation
+            if (!customerName) {
+                alert('Please enter your name');
+                return;
+            }
+            if (!customerAddress) {
+                alert('Please enter your delivery address');
+                return;
+            }
+
+            // Compile order message
+            let orderMessage = `*TVS Kitchen Order*\n\n`;
+            orderMessage += `*Customer Details:*\n`;
+            orderMessage += `Name: ${customerName}\n`;
+            orderMessage += `Address: ${customerAddress}\n`;
+            if (customerInstructions) {
+                orderMessage += `Special Instructions: ${customerInstructions}\n`;
+            }
+            orderMessage += `\n*Order Items:*\n`;
+
+            let totalPrice = 0;
+            cart.forEach((item, index) => {
+                orderMessage += `${index + 1}. ${item.name} x${item.quantity} - ₹${item.basePrice * item.quantity}`;
+                
+                if (item.extras.length > 0) {
+                    item.extras.forEach(extra => {
+                        orderMessage += `\n   + ${extra.name} - ₹${extra.price}`;
+                    });
+                }
+                orderMessage += `\n`;
+                totalPrice += item.totalPrice;
+            });
+
+            orderMessage += `\n*Grand Total: ₹${totalPrice}*`;
+
+            // Encode message for WhatsApp
+            const encodedMessage = encodeURIComponent(orderMessage);
+            const whatsappURL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+
+            // Clear cart and close modal
+            cart = [];
+            document.getElementById('checkout-modal').classList.add('hidden');
+            document.getElementById('customer-name').value = '';
+            document.getElementById('customer-address').value = '';
+            document.getElementById('customer-instructions').value = '';
+            updateCartUI();
+            hideCartTray();
+
+            // Open WhatsApp
+            window.open(whatsappURL, '_blank');
+        }
     </script>
 
 </body>
