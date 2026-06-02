@@ -200,6 +200,14 @@
                 <!-- Customer Details Form -->
                 <input type="text" id="customer-name" placeholder="Your Name" class="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-600">
                 <textarea id="customer-address" placeholder="Delivery Address" class="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-600 resize-none" rows="3"></textarea>
+
+                <!-- Payment Section -->
+                <div class="bg-blue-50 border-2 border-blue-300 rounded-lg p-4 mt-4">
+                    <h3 class="font-bold text-sm text-blue-900 mb-2">💳 Payment Method</h3>
+                    <p class="text-xs text-blue-800 font-semibold">Pay Securely via GPay / PhonePe / Paytm</p>
+                    <p class="text-xs text-blue-700 mt-1">Instant UPI payment with auto-filled amount</p>
+                </div>
+
                 <textarea id="customer-instructions" placeholder="Special Instructions (optional)" class="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-600 resize-none" rows="2"></textarea>
             </div>
             <div class="bg-gray-100 p-6 rounded-b-2xl flex gap-3">
@@ -207,7 +215,7 @@
                     Cancel
                 </button>
                 <button id="place-order-btn" class="flex-1 bg-red-600 hover:bg-red-700 text-white font-bold px-4 py-2 rounded-lg transition">
-                    Place Order via WhatsApp
+                    Pay & Place Order
                 </button>
             </div>
         </div>
@@ -218,6 +226,7 @@
         // Cart State Management
         let cart = []; // Array of cart items with quantities and extras
         const WHATSAPP_NUMBER = '916379143731';
+        const UPI_ID = 'sethuram268@okaxis';
 
         // Initialize event listeners
         document.addEventListener('DOMContentLoaded', () => {
@@ -396,7 +405,7 @@
             checkoutTotal.textContent = '₹' + totalPrice;
         }
 
-        // Handle Place Order
+        // Handle Place Order with UPI Payment
         function handlePlaceOrder() {
             const customerName = document.getElementById('customer-name').value.trim();
             const customerAddress = document.getElementById('customer-address').value.trim();
@@ -412,7 +421,16 @@
                 return;
             }
 
-            // Compile order message
+            // Calculate total price
+            let totalPrice = 0;
+            cart.forEach((item) => {
+                totalPrice += item.totalPrice;
+            });
+
+            // Generate UPI deep-link
+            const upiLink = generateUPILink(totalPrice);
+
+            // Compile order message with payment status
             let orderMessage = `*TVS Kitchen Order*\n\n`;
             orderMessage += `*Customer Details:*\n`;
             orderMessage += `Name: ${customerName}\n`;
@@ -422,7 +440,6 @@
             }
             orderMessage += `\n*Order Items:*\n`;
 
-            let totalPrice = 0;
             cart.forEach((item, index) => {
                 orderMessage += `${index + 1}. ${item.name} x${item.quantity} - ₹${item.basePrice * item.quantity}`;
                 
@@ -432,10 +449,10 @@
                     });
                 }
                 orderMessage += `\n`;
-                totalPrice += item.totalPrice;
             });
 
             orderMessage += `\n*Grand Total: ₹${totalPrice}*`;
+            orderMessage += `\n\n*[STATUS: Paid via UPI]*`;
 
             // Encode message for WhatsApp
             const encodedMessage = encodeURIComponent(orderMessage);
@@ -450,8 +467,19 @@
             updateCartUI();
             hideCartTray();
 
-            // Open WhatsApp
-            window.open(whatsappURL, '_blank');
+            // Trigger UPI payment link on mobile devices
+            window.location.href = upiLink;
+
+            // Delay WhatsApp message to allow UPI app to open
+            setTimeout(() => {
+                window.open(whatsappURL, '_blank');
+            }, 1500);
+        }
+
+        // Generate UPI Deep-Link
+        function generateUPILink(amount) {
+            const upiURL = `upi://pay?pa=${UPI_ID}&pn=TVS_Kitchen&am=${amount}&cu=INR&tn=TVS_Kitchen_Order`;
+            return upiURL;
         }
     </script>
 
