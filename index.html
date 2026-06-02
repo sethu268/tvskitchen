@@ -366,6 +366,7 @@
     <div id="cart-tray" class="fixed bottom-0 left-0 right-0 z-50 bg-white shadow-2xl transform translate-y-full transition-transform duration-300 border-t border-gray-200">
         <div class="max-w-md mx-auto px-4 py-4 flex items-center justify-between">
             <div class="flex-1">
+                <div id="delivery-alert" class="text-sm text-center py-2 px-3 rounded-lg transition mb-2 hidden"></div>
                 <p class="text-sm font-semibold text-gray-800" id="cart-summary">
                     <span id="cart-count">0</span> Items | Total: <span id="cart-total">₹0</span>
                 </p>
@@ -387,6 +388,7 @@
                 <div id="checkout-items" class="space-y-2 mb-4 pb-4 border-b border-gray-200">
                     <!-- Items will be populated here -->
                 </div>
+                <div id="delivery-alert" class="text-sm text-center py-2 px-3 rounded-lg transition mb-3"></div>
                 <div class="flex justify-between text-sm text-gray-700">
                     <span>Delivery Fee:</span>
                     <span id="checkout-delivery-fee">₹0</span>
@@ -554,18 +556,50 @@
         function updateCartUI() {
             const cartCount = document.getElementById('cart-count');
             const cartTotal = document.getElementById('cart-total');
+            const deliveryAlert = document.querySelector('#cart-tray #delivery-alert');
             const totals = calculateCartTotals();
 
             let totalItems = cart.length;
             cartCount.textContent = totalItems;
             cartTotal.textContent = '₹' + totals.total + (totals.deliveryFee ? ' (incl. delivery)' : '');
+
+            // Update delivery alert
+            if (totals.incentive.message) {
+                deliveryAlert.textContent = totals.incentive.message;
+                deliveryAlert.className = `text-sm text-center py-2 px-3 rounded-lg transition mb-2 ${totals.incentive.color}`;
+                deliveryAlert.classList.remove('hidden');
+            } else {
+                deliveryAlert.classList.add('hidden');
+            }
+        }
+
+        // Get delivery incentive message based on subtotal
+        function getDeliveryIncentiveMessage(subtotal) {
+            if (subtotal === 0) {
+                return { message: '', color: '', deliveryFee: 0 };
+            }
+            if (subtotal < DELIVERY_THRESHOLD) {
+                const amountNeeded = DELIVERY_THRESHOLD - subtotal;
+                return {
+                    message: `Add ₹${amountNeeded} more for FREE delivery!`,
+                    color: 'bg-amber-50 text-amber-700',
+                    deliveryFee: DELIVERY_FEE
+                };
+            } else {
+                return {
+                    message: '🎉 You\'ve unlocked FREE Delivery!',
+                    color: 'bg-green-50 text-green-700',
+                    deliveryFee: 0
+                };
+            }
         }
 
         function calculateCartTotals() {
             const subTotal = cart.reduce((sum, item) => sum + item.totalPrice, 0);
-            const deliveryFee = subTotal === 0 || subTotal >= DELIVERY_THRESHOLD ? 0 : DELIVERY_FEE;
+            const incentive = getDeliveryIncentiveMessage(subTotal);
+            const deliveryFee = incentive.deliveryFee;
             const total = subTotal + deliveryFee;
-            return { subTotal, deliveryFee, total };
+            return { subTotal, deliveryFee, total, incentive };
         }
 
         // Show cart tray
@@ -698,6 +732,7 @@
             const checkoutItems = document.getElementById('checkout-items');
             const checkoutTotal = document.getElementById('checkout-total');
             const checkoutDeliveryFee = document.getElementById('checkout-delivery-fee');
+            const deliveryAlert = document.querySelector('#checkout-modal #delivery-alert');
             const totals = calculateCartTotals();
 
             checkoutItems.innerHTML = '';
@@ -721,6 +756,15 @@
                 
                 checkoutItems.innerHTML += itemHTML;
             });
+
+            // Update delivery alert in checkout modal
+            if (totals.incentive.message) {
+                deliveryAlert.textContent = totals.incentive.message;
+                deliveryAlert.className = `text-sm text-center py-2 px-3 rounded-lg transition mb-3 ${totals.incentive.color}`;
+            } else {
+                deliveryAlert.textContent = '';
+                deliveryAlert.className = 'text-sm text-center py-2 px-3 rounded-lg transition mb-3';
+            }
 
             checkoutDeliveryFee.textContent = totals.deliveryFee ? `₹${totals.deliveryFee}` : 'Free';
             checkoutTotal.textContent = '₹' + totals.total;
@@ -768,9 +812,8 @@
             if (customerInstructions) {
                 orderMessage += `Special Instructions: ${customerInstructions}\n`;
             }
-            if (deliveryFee > 0) {
-                orderMessage += `Delivery Fee: ₹${deliveryFee}\n`;
-            }
+            orderMessage += `\n*Delivery Details:*\n`;
+            orderMessage += `Delivery Fee: ${deliveryFee > 0 ? `₹${deliveryFee}` : 'Free'}\n`;
             orderMessage += `\n*Order Items:*\n`;
 
             cart.forEach((item, index) => {
@@ -784,6 +827,7 @@
                 orderMessage += `\n`;
             });
 
+            orderMessage += `\n*Subtotal: ₹${totals.subTotal}*`;
             orderMessage += `\n*Grand Total: ₹${totalPrice}*`;
             orderMessage += `\n\n*[STATUS: Paid via UPI]*`;
 
