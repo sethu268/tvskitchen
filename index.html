@@ -37,25 +37,23 @@
                 <button class="category-tab active px-4 py-2 bg-emerald-600 text-white font-semibold rounded-full whitespace-nowrap transition text-sm" data-category="all">
                     All
                 </button>
-                <button class="category-tab px-4 py-2 bg-gray-200 text-gray-800 font-semibold rounded-full whitespace-nowrap transition text-sm hover:bg-gray-300" data-category="meals">
-                    Meals
+                <button class="category-tab px-4 py-2 bg-gray-200 text-gray-800 font-semibold rounded-full whitespace-nowrap transition text-sm hover:bg-gray-300" data-category="hot-kitchen">
+                    Hot Kitchen
                 </button>
-                <button class="category-tab px-4 py-2 bg-gray-200 text-gray-800 font-semibold rounded-full whitespace-nowrap transition text-sm hover:bg-gray-300" data-category="tiffin">
-                    Tiffin
-                </button>
-                <button class="category-tab px-4 py-2 bg-gray-200 text-gray-800 font-semibold rounded-full whitespace-nowrap transition text-sm hover:bg-gray-300" data-category="sides">
-                    Sides
-                </button>
-                <button class="category-tab px-4 py-2 bg-gray-200 text-gray-800 font-semibold rounded-full whitespace-nowrap transition text-sm hover:bg-gray-300" data-category="prep-veg">
-                    Chopped Veggies
-                </button>
-                <button class="category-tab px-4 py-2 bg-gray-200 text-gray-800 font-semibold rounded-full whitespace-nowrap transition text-sm hover:bg-gray-300" data-category="marinated">
-                    Marinated Meats
+                <button class="category-tab px-4 py-2 bg-gray-200 text-gray-800 font-semibold rounded-full whitespace-nowrap transition text-sm hover:bg-gray-300" data-category="prep-studio">
+                    Prep Studio
                 </button>
             </div>
 
-            <!-- Menu Grid -->
-            <div class="grid grid-cols-1 gap-4" id="menu-container">
+            <!-- TVS HOT KITCHEN SECTION -->
+            <div class="space-y-6">
+                <div class="sticky top-0 z-20 bg-white pt-4 pb-3 border-b-2 border-emerald-600">
+                    <h3 class="text-xl font-bold text-emerald-800">🔥 TVS Hot Kitchen</h3>
+                    <p class="text-xs text-gray-600 mt-1">Hot, authentic, homestyle meals delivered ready to feast.</p>
+                </div>
+
+                <!-- Hot Kitchen Items Grid -->
+                <div class="grid grid-cols-1 gap-4" id="hot-kitchen-menu">
                 
                 <!-- Standard Veg Meals -->
                 <div class="menu-card bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 transition hover:shadow-lg" data-category="meals" data-item-id="1">
@@ -168,6 +166,18 @@
                         </button>
                     </div>
                 </div>
+            </div>
+            </div>
+
+            <!-- TVS PREP STUDIO SECTION -->
+            <div class="space-y-6 mt-12">
+                <div class="sticky top-0 z-20 bg-white pt-4 pb-3 border-b-2 border-amber-600">
+                    <h3 class="text-xl font-bold text-amber-800">🥘 TVS Prep Studio</h3>
+                    <p class="text-xs text-gray-600 mt-1">Freshly chopped veggies and chef-marinated meats. Cook fresh in minutes!</p>
+                </div>
+
+                <!-- Prep Studio Items Grid -->
+                <div class="grid grid-cols-1 gap-4" id="prep-studio-menu">
 
                 <!-- Chopped Sambar Mix -->
                 <div class="menu-card bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 transition hover:shadow-lg" data-category="prep-veg" data-item-id="6">
@@ -243,7 +253,74 @@
                         </button>
                     </div>
                 </div>
+            </div>
+            </div>
 
+            <!-- TVS HOT KITCHEN SECTION (Continued) -->
+            <div class="space-y-6 mt-12">
+                <div class="sticky top-0 z-20 bg-white pt-4 pb-3 border-b-2 border-emerald-600">
+                    <h3 class="text-xl font-bold text-emerald-800">🔥 TVS Hot Kitchen</h3>
+                    <p class="text-xs text-gray-600 mt-1">Desserts & Specials</p>
+                </div>
+
+                <!-- Hot Kitchen Specials Grid -->
+                <div class="grid grid-cols-1 gap-4" id="hot-kitchen-specials">
+
+                <!-- Kuzhi Paniyaram -->
+                <div class="menu-card bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 transition hover:shadow-lg" data-category="tiffin" data-item-id="10">
+                    <img src="https://images.unsplash.com/photo-1601050690597-df056fb49785?w=500&q=80" alt="Kuzhi Paniyaram" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <div class="flex items-center space-x-1.5 mb-2">
+                            <span class="border border-orange-600 p-0.5 rounded text-[10px] text-orange-600 font-bold leading-none">☆</span>
+                            <h3 class="font-bold text-gray-900">Kuzhi Paniyaram</h3>
+                        </div>
+                        <p class="text-xs text-gray-600 mb-2">Crispy outside, fluffy inside spiced rice dumplings. Served with home-style tomato chutney.</p>
+                        <div class="flex justify-between items-center mb-3">
+                            <p class="text-lg font-bold text-gray-900">₹60</p>
+                        </div>
+                        <button class="add-to-cart-btn w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-4 py-2 rounded-lg text-sm transition shadow-sm" data-item-id="10" data-name="Kuzhi Paniyaram" data-price="60">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Vazhaipoo Vadai -->
+                <div class="menu-card bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 transition hover:shadow-lg" data-category="sides" data-item-id="11">
+                    <img src="https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=500&q=80" alt="Vazhaipoo Vadai" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <div class="flex items-center space-x-1.5 mb-2">
+                            <span class="border border-green-600 p-0.5 rounded text-[10px] text-green-600 font-bold leading-none">🍃</span>
+                            <h3 class="font-bold text-gray-900">Vazhaipoo Vadai</h3>
+                        </div>
+                        <p class="text-xs text-gray-600 mb-2">Super crunchy traditional chana dal patties mixed with finely chopped, healthy banana flower blossoms and spices.</p>
+                        <div class="flex justify-between items-center mb-3">
+                            <p class="text-lg font-bold text-gray-900">₹50</p>
+                        </div>
+                        <button class="add-to-cart-btn w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-4 py-2 rounded-lg text-sm transition shadow-sm" data-item-id="11" data-name="Vazhaipoo Vadai" data-price="50">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Elaneer Payasam -->
+                <div class="menu-card bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 transition hover:shadow-lg" data-category="sides" data-item-id="12">
+                    <img src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=500&q=80" alt="Elaneer Payasam" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <div class="flex items-center space-x-1.5 mb-2">
+                            <span class="border border-pink-600 p-0.5 rounded text-[10px] text-pink-600 font-bold leading-none">🍮</span>
+                            <h3 class="font-bold text-gray-900">Elaneer Payasam</h3>
+                        </div>
+                        <p class="text-xs text-gray-600 mb-2">A decadent, chilled South Indian dessert crafted with fresh tender coconut pulp, thick milk, and real cardamom.</p>
+                        <div class="flex justify-between items-center mb-3">
+                            <p class="text-lg font-bold text-gray-900">₹80</p>
+                        </div>
+                        <button class="add-to-cart-btn w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-4 py-2 rounded-lg text-sm transition shadow-sm" data-item-id="12" data-name="Elaneer Payasam" data-price="80">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+            </div>
             </div>
         </div>
     </main>
@@ -414,11 +491,20 @@
                     // Filter cards
                     const selectedCategory = tab.dataset.category;
                     menuCards.forEach(card => {
-                        if (selectedCategory === 'all' || card.dataset.category === selectedCategory) {
-                            card.style.display = 'block';
-                        } else {
-                            card.style.display = 'none';
+                        const itemId = parseInt(card.dataset.itemId);
+                        let shouldShow = false;
+
+                        if (selectedCategory === 'all') {
+                            shouldShow = true;
+                        } else if (selectedCategory === 'hot-kitchen') {
+                            // Items 1-5 (meals, tiffin, sides) and 10-12 (specials, desserts)
+                            shouldShow = (itemId >= 1 && itemId <= 5) || (itemId >= 10 && itemId <= 12);
+                        } else if (selectedCategory === 'prep-studio') {
+                            // Items 6-9 (prep veggies and marinated meats)
+                            shouldShow = itemId >= 6 && itemId <= 9;
                         }
+
+                        card.style.display = shouldShow ? 'block' : 'none';
                     });
                 });
             });
